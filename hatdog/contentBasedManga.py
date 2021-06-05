@@ -48,7 +48,7 @@ def recommend_manga(title, similarity=cosine_similarity):
         # multiplies the similarity of synopsis and genre
         scores = list(enumerate(sig[idx] * cosine_sim[idx]))
 
-        # sort the movies
+        # sort the manga
         scores = sorted(scores, key=lambda x: x[1], reverse=True)
 
         # manga indices
