@@ -32,11 +32,13 @@ indices = pd.Series(df_manga.index, index=df_manga['title']).drop_duplicates()
 # Computes for the similarity of genre and rating using cosine similarity
 m = df_manga.userCount.quantile(0.75)
 C = df_manga.rating.mean()
+# ['action'
+# 'adventure']
+df_manga = pd.concat([df_manga, df_manga['genre'].str.get_dummies(sep=', ')], axis=1)
 
-df_manga = pd.concat([df_manga, df_manga['genre'].str.get_dummies(sep=',')], axis=1)
-
-manga_features = df_manga.loc[:, " 'action'":].copy()
+manga_features = df_manga.loc[:, "'Cooking']":].copy()
 cosine_sim = cosine_similarity(manga_features.values, manga_features.values)
+
 manga_index = pd.Series(df_manga.index, index=df_manga.title).drop_duplicates()
 
 
@@ -66,12 +68,13 @@ def recommend_manga(title, similarity=cosine_similarity):
     return recommendation
 
 # Testing
-while 1!=0:
-    print(df_manga)
-    mangaTitle = input('Enter title: ')
-
-    x = recommend_manga(mangaTitle)
-    y = x.values.tolist()
-
-    for a in y:
-        print(a)
+# while 1!=0:
+#     # for items in df_manga.columns:
+#     #     print(items)
+#     mangaTitle = input('Enter title: ')
+#
+#     x = recommend_manga(mangaTitle)
+#     y = x.values.tolist()
+#
+#     for a in y:
+#         print(a)
