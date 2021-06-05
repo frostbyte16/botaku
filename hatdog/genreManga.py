@@ -29,10 +29,11 @@ def recommend_manga(genre):
     if len(genre) > 50:
         start = random.randrange(0, 44)
         recommendation = genre[start:start + 5]
-    elif len(genre) < 5:
+    elif len(genre) < 6:
         recommendation = genre
     else:
-        start = random.randrange(0, len(genre)-5)
+        size = len(genre) - 5
+        start = random.randrange(0, size)
         recommendation = genre[start:start + 5]
     # recommendation = genre
     # print(len(genre))
