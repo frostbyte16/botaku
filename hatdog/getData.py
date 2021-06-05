@@ -30,7 +30,7 @@ writer = csv.writer(animeFile)
 offset = 0
 
 # range = 500
-animeFields = ['title', 'subtype', 'status', 'image', 'epCount', 'rating', 'userCount', 'synopsis', 'genre']
+animeFields = [['title', 'subtype', 'status', 'image', 'epCount', 'rating', 'userCount', 'synopsis', 'genre']]
 writer.writerows(animeFields)
 for j in range(2):
     print("iteration no." + str(j))
@@ -83,7 +83,7 @@ writer = csv.writer(mangaFile)
 offset = 0
 
 # range = 500
-mangaFields = ['title', 'status', 'image', 'chCount', 'vCount', 'rating', 'userCount', 'synopsis', 'genre']
+mangaFields = [['title', 'status', 'image', 'chCount', 'vCount', 'rating', 'userCount', 'synopsis', 'genre']]
 writer.writerows(mangaFields)
 for j in range(2):
     print("iteration no." + str(j))

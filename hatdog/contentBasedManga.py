@@ -17,7 +17,6 @@ tfv = TfidfVectorizer(min_df=3, max_features=None, strip_accents='unicode',
 tfv_matrix = tfv.fit_transform(df_manga['synopsis'])
 sig = sigmoid_kernel(tfv_matrix, tfv_matrix)
 indices = pd.Series(df_manga.index,index=df_manga['title']).drop_duplicates()
-# print(indices)
 
 # Computes for the similarity of genre and rating using cosine similarity
 m = df_manga.userCount.quantile(0.75)
@@ -36,7 +35,7 @@ manga_index = pd.Series(df_manga.index, index=df_manga.title).drop_duplicates()
 def recommend_manga(title, similarity=cosine_similarity):
     # Searches for manga if title exists in dataframe
     if df_manga['title'].str.contains(title).sum() > 0:
-        idx = int(indices[title]/2)
+        idx = int(indices[title])
 
         # multiplies the similarity of synopsis and genre
         scores = list(enumerate(sig[idx]*cosine_sim[idx]))
@@ -56,12 +55,12 @@ def recommend_manga(title, similarity=cosine_similarity):
         recommendation = df_manga.iloc[0:0]
 
     return recommendation
-
-while 1!=0:
-    mangaTitle = input('Enter title: ')
-
-    x = recommend_manga(mangaTitle)
-    y = x.values.tolist()
-
-    for a in y:
-        print(a)
+#
+# while 1!=0:
+#     mangaTitle = input('Enter title: ')
+#
+#     x = recommend_manga(mangaTitle)
+#     y = x.values.tolist()
+#
+#     for a in y:
+#         print(a)

@@ -18,7 +18,7 @@ tfv_matrix = tfv.fit_transform(df_anime['synopsis'])
 sig = sigmoid_kernel(tfv_matrix, tfv_matrix)
 indices = pd.Series(df_anime.index,index=df_anime['title']).drop_duplicates()
 
-#computes for the similarity of genre and rating using cosine similarity
+# Computes for the similarity of genre and rating using cosine similarity
 m = df_anime.userCount.quantile(0.75)
 C = df_anime.rating.mean()
 
@@ -36,7 +36,7 @@ anime_index = pd.Series(df_anime.index, index=df_anime.title).drop_duplicates()
 def recommend_anime(title, type, similarity=cosine_sim):
     # Searches for anime if title exists in dataframe
     if df_anime['title'].str.contains(title).sum() > 0:
-        idx = int(indices[title]/2)
+        idx = int(indices[title])
 
         # multiplies the similarity of synopsis and genre
         scores = list(enumerate(sig[idx]*cosine_sim[idx]))
@@ -70,12 +70,12 @@ def recommend_anime(title, type, similarity=cosine_sim):
 
     return recommendation
 
-# while 1!=0:
-#     animeTitle = input('Enter title: ')
-#
-#     x = recommend_anime(animeTitle, 'TV')
-#     y = x.values.tolist()
-#
-#     for a in y:
-#         print(a)
+while 1!=0:
+    #print(df_anime)
+    animeTitle = input('Enter title: ')
 
+    x = recommend_anime(animeTitle, 'TV')
+    y = x.values.tolist()
+
+    for a in y:
+        print(a)
