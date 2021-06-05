@@ -3,33 +3,33 @@ import requests
 import csv
 
 # gets the list of genres from kitsu
-genrelist = []
-Goffset = 0
+genreList = []
+genreOffset = 0
 index = 0
 
 for j in range(4):
     for i in range(20):
         index = index + 1
-        api = f'https://kitsu.io/api/edge/genres?page%5Blimit%5D=20&page%5Boffset%5D={Goffset}'
+        api = f'https://kitsu.io/api/edge/genres?page%5Blimit%5D=20&page%5Boffset%5D={genreOffset}'
         response = requests.get(api)
         genreDict = response.json()
-        if (index < 63):
-            genrelist.append(genreDict["data"][i]["attributes"]["slug"])
+        if index < 63:
+            genreList.append(genreDict["data"][i]["attributes"]["slug"])
         else:
             break
-    Goffset = Goffset + 20
+    genreOffset = genreOffset + 20
 
-genrelist.insert(0, "none")
-genrelist.insert(12, "none")
-genrelist.insert(18, "none")
-genrelist.insert(33, "none")
+genreList.insert(0, "none")
+genreList.insert(12, "none")
+genreList.insert(18, "none")
+genreList.insert(33, "none")
 
 # gets data of all anime
 animeFile = open('anime.csv', 'w', encoding="utf8")
 writer = csv.writer(animeFile)
 offset = 0
 
-# range = 500
+# range = 500 due to getting relevant anime only
 animeFields = [['title', 'subtype', 'status', 'image', 'epCount', 'rating', 'userCount', 'synopsis', 'genre']]
 writer.writerows(animeFields)
 for j in range(500):
@@ -67,11 +67,11 @@ for j in range(500):
 
             genre = []
             if len(genreDictB["data"]) == 0:
-                genre.append(genrelist[0])
+                genre.append(genreList[0])
             for k in range(len(genreDictB["data"])):
                 genre_number = int(genreDictB["data"][k]["id"])
-                genre.append(genrelist[genre_number])
-            # 'title', 'subtype', 'status', 'image', 'epCount', 'rating', 'userCount', 'synopsis', 'genre'
+                genre.append(genreList[genre_number])
+
             rows = [[title, subtype, status, image, epCount, rating, userCount, synopsis, genre]]
             writer.writerows(rows)
     offset = offset + 20
@@ -82,7 +82,7 @@ mangaFile = open('manga.csv', 'w', encoding="utf8")
 writer = csv.writer(mangaFile)
 offset = 0
 
-# range = 500
+# range = 500 due to getting relevant manga only
 mangaFields = [['title', 'status', 'image', 'chCount', 'vCount', 'rating', 'userCount', 'synopsis', 'genre']]
 writer.writerows(mangaFields)
 for j in range(500):
@@ -120,11 +120,11 @@ for j in range(500):
 
             genre = []
             if len(genreDictB["data"]) == 0:
-                genre.append(genrelist[0])
+                genre.append(genreList[0])
             for k in range(len(genreDictB["data"])):
                 genre_number = int(genreDictB["data"][k]["id"])
-                genre.append(genrelist[genre_number])
-            # 'title', 'status', 'image', 'chCount', 'vCount', 'rating', 'userCount', 'synopsis', 'genre'
+                genre.append(genreList[genre_number])
+
             rows = [[title, status, image, chCount, vCount, rating, userCount, synopsis, genre]]
             writer.writerows(rows)
     offset = offset + 20
