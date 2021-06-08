@@ -41,9 +41,9 @@ def recommend_manga(genre):
     return recommendation
 
 # Testing
-while 1!=0:
-    mangaGenre = input('Enter genre: ')
-    x = recommend_manga(mangaGenre)
-    y = x.values.tolist()
-    for a in y:
-        print(a)
+# while 1!=0:
+#     mangaGenre = input('Enter genre: ')
+#     x = recommend_manga(mangaGenre)
+#     y = x.values.tolist()
+#     for a in y:
+#         print(a)

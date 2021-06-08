@@ -16,5 +16,25 @@ for j in range(4):
             break
     genreOffset = genreOffset + 20
 
-for items in genreList:
-    print(items)
+print(genreList)
+count = 1
+genre1 = []
+genre2 = []
+genre3 = []
+genre4 = []
+for i in range(len(genreList)):
+    if count == 1:
+        genre1.append(genreList[i])
+    elif count == 2:
+        genre2.append(genreList[i])
+    elif count == 3:
+        genre3.append(genreList[i])
+    else:
+        genre4.append(genreList[i])
+        count = 0
+    count = count + 1
+print(genre1)
+print(genre2)
+print(genre3)
+print(genre4)
+# print(len(genreList))

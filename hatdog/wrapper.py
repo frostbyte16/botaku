@@ -3,7 +3,6 @@ import kitsu
 import contentBasedAnime as cba
 import contentBasedManga as cbm
 
-
 client = kitsu.Client()
 
 async def anime_search(query):
@@ -21,7 +20,6 @@ async def anime_search(query):
         else:
             return []
 
-
 async def manga_search(query):
     entries = await client.search('manga', query, limit=5)
     if not entries:
@@ -35,19 +33,21 @@ async def manga_search(query):
             recoList = recommendation.values.tolist()
             return recoList
         else:
-            return []
+            blank = []
+            return blank
 
-loop = asyncio.get_event_loop()
-
-while 1!=0:
-    x = input('Insert an anime name: ')
-    listRec = loop.run_until_complete(anime_search(x))
-    if len(listRec) > 0:
-        for items in listRec:
-            print(items)
-
-    y = input('Insert a manga name: ')
-    listRec = loop.run_until_complete(manga_search(y))
-    if len(listRec) > 0:
-        for items in listRec:
-            print(items)
+# test
+# loop = asyncio.get_event_loop()
+#
+# while 1!=0:
+#     x = input('Insert an anime name: ')
+#     listRec = loop.run_until_complete(anime_search(x))
+#     if len(listRec) > 0:
+#         for items in listRec:
+#             print(items)
+#
+#     y = input('Insert a manga name: ')
+#     listRec = loop.run_until_complete(manga_search(y))
+#     if len(listRec) > 0:
+#         for items in listRec:
+#             print(items)
