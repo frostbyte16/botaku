@@ -62,7 +62,7 @@ async def commandlist(ctx):
 
     embed.set_footer(text='BOT-aku commands')
     embed.set_thumbnail(
-        url='https://i.pinimg.com/originals/6a/04/10/6a04102ea616384c56747a40952c00ad.gif')
+        url='https://i.pinimg.com/originals/9b/42/5d/9b425d00289b5d409ba584b5f4c84c55.gif')
     embed.set_author(name=ctx.author.display_name,
                      icon_url=ctx.author.avatar_url)
     embed.add_field(name="**~genre or ~g**", value='Displays list of genre available', inline=False)
