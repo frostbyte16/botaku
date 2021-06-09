@@ -9,7 +9,6 @@ client = commands.Bot(command_prefix='~')
 search = kitsu.Client()
 TOKEN = 'ODMzNTk3NDI1NTc0ODcxMDYw.YH0qGQ.bWJgnmd0l4pYAWoZKNZVcVPye8o'
 
-
 @client.event
 async def on_ready():
     print('we have logged in as {0.user}'.format(client))
@@ -51,32 +50,33 @@ async def _hugger(ctx):
     randomdere = random.choice(dere)
     await ctx.send(f"**HUGS** {ctx.author.mention} {randomdere} :heartbeat:")
 
-# command list
+# displays commands list
 @client.command(aliases=['commands'])
 async def commandlist(ctx):
     channel = ctx.message.channel
     embed = discord.Embed(
         title='Commands',
         description='These are all the available commands.',
-        colour=discord.Colour.blue()
+        colour=discord.Colour.purple()
     )
 
     embed.set_footer(text='BOT-aku commands')
     embed.set_thumbnail(
-        url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
-    embed.set_author(name='BOTaku',
-                     icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
+        url='https://i.pinimg.com/originals/6a/04/10/6a04102ea616384c56747a40952c00ad.gif')
+    embed.set_author(name=ctx.author.display_name,
+                     icon_url=ctx.author.avatar_url)
     embed.add_field(name="**~genre or ~g**", value='Displays list of genre available', inline=False)
-    embed.add_field(name="**~animeName or ~an**", value='This searches based on anime name.', inline=True)
-    embed.add_field(name="**~animeGenre or ~ag**", value='This searches based on anime genre.', inline=True)
-    embed.add_field(name="**~randomAnime or ~ra**", value='displays random recommended anime.', inline=False)
-    embed.add_field(name="**~mangaName or ~mn**", value='This searches based on manga name.', inline=True)
-    embed.add_field(name="**~mangaGenre or ~mg**", value='This searches based on manga genre.', inline=True)
-    embed.add_field(name="**~randomManga or ~rm**", value='displays random recommended manga.', inline=False)
+    embed.add_field(name="**~recommendAnime *title* or ~a *title* **", value='Recommends anime based on title.', inline=False)
+    embed.add_field(name="**~recommendManga *title* or ~m *title* **", value='Recommends manga based on title.', inline=True)
+    embed.add_field(name="**~animeGenre *genre* or ~ag *genre* **", value='Recommends anime based on genre.', inline=False)
+    embed.add_field(name="**~mangaGenre *genre* or ~mg *genre* **", value='Recommends manga based on genre.', inline=True)
+    embed.add_field(name="**~randomAnime or ~ra**", value='Recommends random anime.', inline=False)
+    embed.add_field(name="**~randomManga or ~rm**", value='Recommends random manga.', inline=True)
+    embed.add_field(name="**~hug or ~hugs**", value='Botaku hugs user.', inline=False)
 
     await ctx.send(embed=embed)
 
-# display genre
+# displays all genre
 @client.command(aliases=['genre', 'g'])
 async def _displayGenre(ctx):
     genre1 = List_list.colA
@@ -91,10 +91,9 @@ async def _displayGenre(ctx):
 
     embed.set_footer(text='For more info, type ~commands to view commands list')
     embed.set_thumbnail(
-        url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
-    embed.set_image(url='https://pbs.twimg.com/media/Dve5RXxWwAAVth6.jpg')
-    embed.set_author(name='BOTaku',
-                     icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
+        url='https://i.pinimg.com/originals/1e/91/49/1e9149f3e0f1edeae80aa1e90baa74de.png')
+    embed.set_author(name=ctx.author.display_name,
+                     icon_url=ctx.author.avatar_url)
     embed.add_field(name='List of Genres', value=genre1, inline=True)
     embed.add_field(name='\u200b', value=genre2, inline=True)
     embed.add_field(name='\u200b', value=genre3, inline=True)
@@ -182,13 +181,13 @@ async def _searchAnimegenre(ctx, arg):
     else:
         embed = discord.Embed(
             title='Genre not Available',
-            description='Please use the command ~animeGenre to show all available genres',
-            colour=discord.Colour.blue()
+            description='Please use the command ~genre to show all available genres',
+            colour=discord.Colour.dark_red()
         )
 
         embed.set_footer(text='For more info, type ~commands to view commands list')
-        embed.set_author(name='BOTaku',
-                         icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
+        embed.set_author(name=ctx.author.display_name,
+                             icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
 
 
@@ -287,8 +286,7 @@ async def _supriseManga(ctx):
         await ctx.send(embed=embed)
         print(i + 1)
 
-
-# manga search genre
+# recommends manga based on genre
 @client.command(aliases=['mangaGenre', 'mg'])
 async def _mangaGenre(ctx, arg):
     genre = arg
@@ -323,20 +321,21 @@ async def _mangaGenre(ctx, arg):
     else:
         embed = discord.Embed(
             title='Genre not Available',
-            description='Please use the command ~animeGenre to show all available genres',
-            colour=discord.Colour.blue()
+            description='Please use the command ~genre to show all available genres',
+            colour=discord.Colour.dark_red()
         )
 
         embed.set_footer(text='For more info, type ~commands to view commands list')
-        embed.set_author(name='BOTaku',
-                         icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
+        embed.set_author(name=ctx.author.display_name,
+                             icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
 
-@client.command(aliases=['recommendManga', 'rem'])
+# recommends manga based on title
+@client.command(aliases=['recommendManga', 'm'])
+@commands.cooldown(1,2, commands.BucketType.user)
 async def _recomanga(ctx, arg):
     query = arg
     recoList = await w.manga_search(query)
-    print(len(recoList))
     if len(recoList) > 0:
         for i in range(5):
             manga_Titles = recoList[i][0]
@@ -371,7 +370,5 @@ async def _recomanga(ctx, arg):
         embed.set_author(name='BOTaku',
                          icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
         await ctx.send(embed=embed)
-
-
 
 client.run(TOKEN)

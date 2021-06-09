@@ -44,23 +44,24 @@ manga_index = pd.Series(df_manga.index, index=df_manga.title).drop_duplicates()
 
 def recommend_manga(title, similarity=cosine_similarity):
     # Searches for manga if title exists in dataframe
-    if df_manga['title'].str.contains(title).sum() > 0:
-        idx = int(indices[title])
-        #print(idx)
-        # multiplies the similarity of synopsis and genre
-        scores = list(enumerate(sig[idx] * cosine_sim[idx]))
+    if title in df_manga.values:
+        if df_manga['title'].str.contains(title).sum() > 0:
+            idx = int(indices[title])
+            # print(idx)
+            # multiplies the similarity of synopsis and genre
+            scores = list(enumerate(sig[idx] * cosine_sim[idx]))
 
-        # sort the manga
-        scores = sorted(scores, key=lambda x: x[1], reverse=True)
+            # sort the manga
+            scores = sorted(scores, key=lambda x: x[1], reverse=True)
 
-        # manga indices
-        manga_indices = [i[0] for i in scores]
+            # manga indices
+            manga_indices = [i[0] for i in scores]
 
-        recommendation = df_manga[['title', 'status', 'chCount', 'vCount', 'image', 'rating', 'synopsis']].iloc[
-            manga_indices]
+            recommendation = df_manga[['title', 'status', 'chCount', 'vCount', 'image', 'rating', 'synopsis']].iloc[
+                manga_indices]
 
-        # Top 5 most similar manga
-        recommendation = recommendation[1:6]
+            # Top 5 most similar manga
+            recommendation = recommendation[1:6]
     else:
         # Returns empty dataframe if title is not found
         recommendation = df_manga.iloc[0:0]

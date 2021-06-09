@@ -39,36 +39,37 @@ anime_index = pd.Series(df_anime.index, index=df_anime.title).drop_duplicates()
 
 def recommend_anime(title, type, similarity=cosine_sim):
     # Searches for anime if title exists in dataframe
-    if df_anime['title'].str.contains(title).sum() > 0:
-        idx = int(indices[title])
+    if title in df_anime.values:
+        if df_anime['title'].str.contains(title).sum() > 0:
+            idx = int(indices[title])
 
-        # multiplies the similarity of synopsis and genre
-        scores = list(enumerate(sig[idx] * cosine_sim[idx]))
+            # multiplies the similarity of synopsis and genre
+            scores = list(enumerate(sig[idx] * cosine_sim[idx]))
 
-        # sort the movies
-        scores = sorted(scores, key=lambda x: x[1], reverse=True)
+            # sort the movies
+            scores = sorted(scores, key=lambda x: x[1], reverse=True)
 
-        # anime indices
-        anime_indices = [i[0] for i in scores]
+            # anime indices
+            anime_indices = [i[0] for i in scores]
 
-        recommendation = df_anime[['title', 'status', 'subtype', 'epCount', 'image', 'rating', 'synopsis']].iloc[
-            anime_indices]
+            recommendation = df_anime[['title', 'status', 'subtype', 'epCount', 'image', 'rating', 'synopsis']].iloc[
+                anime_indices]
 
-        if type == 'TV':
-            recommendation.drop(df_anime[df_anime['subtype'] == 'movie'].index, inplace=True)
-            recommendation.drop(df_anime[df_anime['subtype'] == 'ONA'].index, inplace=True)
-            recommendation.drop(df_anime[df_anime['subtype'] == 'OVA'].index, inplace=True)
-            recommendation.drop(df_anime[df_anime['subtype'] == 'special'].index, inplace=True)
-            recommendation.drop(df_anime[df_anime['subtype'] == 'music'].index, inplace=True)
-        elif type == 'movie':
-            recommendation.drop(df_anime[df_anime['subtype'] == 'TV'].index, inplace=True)
-            recommendation.drop(df_anime[df_anime['subtype'] == 'ONA'].index, inplace=True)
-            recommendation.drop(df_anime[df_anime['subtype'] == 'OVA'].index, inplace=True)
-            recommendation.drop(df_anime[df_anime['subtype'] == 'special'].index, inplace=True)
-            recommendation.drop(df_anime[df_anime['subtype'] == 'music'].index, inplace=True)
+            if type == 'TV':
+                recommendation.drop(df_anime[df_anime['subtype'] == 'movie'].index, inplace=True)
+                recommendation.drop(df_anime[df_anime['subtype'] == 'ONA'].index, inplace=True)
+                recommendation.drop(df_anime[df_anime['subtype'] == 'OVA'].index, inplace=True)
+                recommendation.drop(df_anime[df_anime['subtype'] == 'special'].index, inplace=True)
+                recommendation.drop(df_anime[df_anime['subtype'] == 'music'].index, inplace=True)
+            elif type == 'movie':
+                recommendation.drop(df_anime[df_anime['subtype'] == 'TV'].index, inplace=True)
+                recommendation.drop(df_anime[df_anime['subtype'] == 'ONA'].index, inplace=True)
+                recommendation.drop(df_anime[df_anime['subtype'] == 'OVA'].index, inplace=True)
+                recommendation.drop(df_anime[df_anime['subtype'] == 'special'].index, inplace=True)
+                recommendation.drop(df_anime[df_anime['subtype'] == 'music'].index, inplace=True)
 
-        # Top 5 most similar anime
-        recommendation = recommendation[1:6]
+            # Top 5 most similar anime
+            recommendation = recommendation[1:6]
     else:
         # Returns empty dataframe if title is not found
         recommendation = df_anime.iloc[0:0]

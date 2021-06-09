@@ -1,7 +1,7 @@
-import asyncio
 import kitsu
 import contentBasedAnime as cba
 import contentBasedManga as cbm
+import asyncio
 
 client = kitsu.Client()
 
@@ -29,12 +29,12 @@ async def manga_search(query):
     for i, manga in enumerate(entries, 1):
         print(manga.title)
         recommendation = cbm.recommend_manga(manga.title)
+
         if recommendation.size > 0:
             recoList = recommendation.values.tolist()
             return recoList
         else:
-            blank = []
-            return blank
+            return []
 
 # test
 # loop = asyncio.get_event_loop()
