@@ -77,55 +77,55 @@ for j in range(500):
     offset = offset + 20
 animeFile.close()
 
-# gets data of all manga
-mangaFile = open('manga.csv', 'w', encoding="utf8")
-writer = csv.writer(mangaFile)
-offset = 0
-
-# range = 500 due to getting relevant manga only
-mangaFields = [['title', 'status', 'image', 'chCount', 'vCount', 'rating', 'userCount', 'synopsis', 'genre']]
-writer.writerows(mangaFields)
-for j in range(500):
-    print("iteration no." + str(j))
-    print(offset)
-    for i in range(20):
-        api = f'https://kitsu.io/api/edge/manga?&sort=-averageRating&page[limit]=20&page[offset]={offset}'
-        response = requests.get(api)
-
-        if response.status_code != 200:
-            print('Error')
-        else:
-            mangaDict = response.json()
-
-            title = mangaDict["data"][i]["attributes"]["canonicalTitle"]
-            status = mangaDict["data"][i]["attributes"]["status"]
-            chCount = mangaDict["data"][i]["attributes"]["chapterCount"]
-            vCount = mangaDict["data"][i]["attributes"]["volumeCount"]
-            rating = mangaDict["data"][i]["attributes"]["averageRating"]
-            userCount = mangaDict["data"][i]["attributes"]["userCount"]
-            synopsis = mangaDict["data"][i]["attributes"]["synopsis"]
-            genreLink = mangaDict["data"][i]["relationships"]["genres"]["links"]["self"]
-
-            if mangaDict["data"][i]["attributes"]["posterImage"]["large"] == None:
-                image = mangaDict["data"][i]["attributes"]["posterImage"]["original"]
-            else:
-                image = mangaDict["data"][i]["attributes"]["posterImage"]["large"]
-
-            if status == 'current':
-                status = 'ongoing'
-
-            print(offset+i)
-            responseGenre = requests.get(genreLink)
-            genreDictB = responseGenre.json()
-
-            genre = []
-            if len(genreDictB["data"]) == 0:
-                genre.append(genreList[0])
-            for k in range(len(genreDictB["data"])):
-                genre_number = int(genreDictB["data"][k]["id"])
-                genre.append(genreList[genre_number])
-
-            rows = [[title, status, image, chCount, vCount, rating, userCount, synopsis, genre]]
-            writer.writerows(rows)
-    offset = offset + 20
-mangaFile.close()
+# # gets data of all manga
+# mangaFile = open('manga.csv', 'w', encoding="utf8")
+# writer = csv.writer(mangaFile)
+# offset = 0
+#
+# # range = 500 due to getting relevant manga only
+# mangaFields = [['title', 'status', 'image', 'chCount', 'vCount', 'rating', 'userCount', 'synopsis', 'genre']]
+# writer.writerows(mangaFields)
+# for j in range(500):
+#     print("iteration no." + str(j))
+#     print(offset)
+#     for i in range(20):
+#         api = f'https://kitsu.io/api/edge/manga?&sort=-averageRating&page[limit]=20&page[offset]={offset}'
+#         response = requests.get(api)
+#
+#         if response.status_code != 200:
+#             print('Error')
+#         else:
+#             mangaDict = response.json()
+#
+#             title = mangaDict["data"][i]["attributes"]["canonicalTitle"]
+#             status = mangaDict["data"][i]["attributes"]["status"]
+#             chCount = mangaDict["data"][i]["attributes"]["chapterCount"]
+#             vCount = mangaDict["data"][i]["attributes"]["volumeCount"]
+#             rating = mangaDict["data"][i]["attributes"]["averageRating"]
+#             userCount = mangaDict["data"][i]["attributes"]["userCount"]
+#             synopsis = mangaDict["data"][i]["attributes"]["synopsis"]
+#             genreLink = mangaDict["data"][i]["relationships"]["genres"]["links"]["self"]
+#
+#             if mangaDict["data"][i]["attributes"]["posterImage"]["large"] == None:
+#                 image = mangaDict["data"][i]["attributes"]["posterImage"]["original"]
+#             else:
+#                 image = mangaDict["data"][i]["attributes"]["posterImage"]["large"]
+#
+#             if status == 'current':
+#                 status = 'ongoing'
+#
+#             print(offset+i)
+#             responseGenre = requests.get(genreLink)
+#             genreDictB = responseGenre.json()
+#
+#             genre = []
+#             if len(genreDictB["data"]) == 0:
+#                 genre.append(genreList[0])
+#             for k in range(len(genreDictB["data"])):
+#                 genre_number = int(genreDictB["data"][k]["id"])
+#                 genre.append(genreList[genre_number])
+#
+#             rows = [[title, status, image, chCount, vCount, rating, userCount, synopsis, genre]]
+#             writer.writerows(rows)
+#     offset = offset + 20
+# mangaFile.close()

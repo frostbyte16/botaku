@@ -130,6 +130,7 @@ async def commandlist(ctx):
     embed.add_field(name=f"**{prefix}randomAnime or {prefix}ra**", value='Recommends random anime.', inline=False)
     embed.add_field(name=f"**{prefix}randomManga or {prefix}rm**", value='Recommends random manga.', inline=True)
     embed.add_field(name=f"**{prefix}hug or {prefix}hugs**", value='Botaku hugs user.', inline=False)
+    embed.add_field(name=f"**{prefix}changeprefix *prefix* **", value='Changes the server prefix for Botaku commands (Administrator-only command).', inline=False)
 
     await ctx.send(embed=embed)
 
@@ -219,7 +220,7 @@ async def _searchAnimegenre(ctx, *arg):
                          icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
     else:
-        genre = arg
+        genre = arg[0]
         genrelist = List_list.genreList
 
         if genre in genrelist:
@@ -242,10 +243,11 @@ async def _searchAnimegenre(ctx, *arg):
                                 + '\n **Rating**: ' + str(anime_Ratings),
                     colour=discord.Colour.blue()
                 )
+
                 embed.set_footer(text=f'For more info, type {prefix}commands to view commands list')
                 embed.set_thumbnail(url=anime_Image)
                 embed.set_author(name=ctx.author.display_name,
-                                 icon_url=ctx.author.avatar.url)
+                                 icon_url=ctx.author.avatar_url)
                 await ctx.send(embed=embed)
 
         else:
@@ -373,13 +375,12 @@ async def _mangaGenre(ctx, *arg):
                          icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
     else:
-        genre = arg
+        genre = arg[0]
         genrelist = List_list.genreList
 
         if genre in genrelist:
             x = gm.recommend_manga(genre)
             recoList = x.values.tolist()
-            print(recoList)
             for i in range(5):
                 manga_Titles = recoList[i][0]
                 manga_Status = recoList[i][1]
