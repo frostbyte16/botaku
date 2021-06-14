@@ -1,5 +1,10 @@
 import discord
 from discord.ext import commands
+from discord.utils import find
+import wrapper as w
+import genreAnime as ga
+import genreManga as gm
+import randomAnime as ran
 import List_list
 import random
 import requests
@@ -95,8 +100,23 @@ async def on_command_error(ctx, error):
             url=gif)
         await ctx.send(embed=embed)
 
+    if isinstance(error, commands.CommandOnCooldown):
+        embed = discord.Embed(
+            title='**Hold On!**',
+            description="**Command on cooldown**, pls try again in {:.2f}s".format(error.retry_after),
+            colour=discord.Colour.dark_red()
+        )
+        embed.set_footer(text='BOT-aku commands')
+        embed.set_author(name='BOTaku',
+                         icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
+        embed.set_image(
+            url=gif)
+        await ctx.send(embed=embed)
+
+
 # command for hug
 @client.command(aliases=['hug', 'hugs'])
+@commands.cooldown(1, 2, commands.BucketType.user)
 async def _hugger(ctx):
     dere = List_list.Bot_say
     randomdere = random.choice(dere)
@@ -105,6 +125,7 @@ async def _hugger(ctx):
 
 # displays commands list
 @client.command(aliases=['commands'])
+@commands.cooldown(1, 2, commands.BucketType.user)
 async def commandlist(ctx):
     channel = ctx.message.channel
     embed = discord.Embed(
@@ -134,8 +155,10 @@ async def commandlist(ctx):
 
     await ctx.send(embed=embed)
 
+
 # displays all genre
 @client.command(aliases=['genre', 'g'])
+@commands.cooldown(1, 2, commands.BucketType.user)
 async def _displayGenre(ctx):
     genre1 = List_list.colA
     genre2 = List_list.colB
@@ -159,52 +182,35 @@ async def _displayGenre(ctx):
     await ctx.send(embed=embed)
 
 
-# random anime
+# recommends anime randomly
 @client.command(aliases=['randomAnime', 'ra'])
+@commands.cooldown(1, 2, commands.BucketType.user)
 async def _surpriseAnime(ctx):
-    genreList = List_list.genreListAnime
-    genre = random.choice(genreList)
-    randOffset = random.randint(0, 100)
+    randAnime = ran.randomAnime()
 
-    api = f'https://kitsu.io/api/edge/anime?filter[categories]={genre}&sort=-averageRating&page[limit]=5&page[offset]={randOffset}'
-    response = requests.get(api)
+    anime_Titles = randAnime[0]
+    anime_Status = randAnime[2]
+    anime_epCount = randAnime[4]
+    anime_Image = randAnime[3]
+    anime_Ratings = randAnime[5]
+    anime_Synopsis = randAnime[7]
+    embed = discord.Embed(
+        title=anime_Titles,
+        description=anime_Synopsis
+                    + '\n\n**Status**: ' + str(anime_Status)
+                    + '\n**No. of Episodes**: ' + str(int(anime_epCount))
+                    + '\n **Rating**: ' + str(anime_Ratings),
+        colour=discord.Colour.blue()
+    )
 
-    animeDict = response.json()
-    print(genre)
-    print(randOffset)
-    for i in range(5):
-        animeTitle = str(animeDict["data"][i]["attributes"]["canonicalTitle"])
-        animeImg = animeDict["data"][i]["attributes"]["posterImage"]["large"]
-        animeStatus = animeDict["data"][i]["attributes"]["status"]
-        animeEpCount = animeDict["data"][i]["attributes"]["episodeCount"]
-        animeRating = animeDict["data"][i]["attributes"]["averageRating"]
-
-        if animeStatus == 'current':
-            animeStatus = 'ongoing'
-
-        if animeDict["data"][i]["attributes"]["synopsis"] == '':
-            animeSynopsis = ("Synopsis unavailable")
-        else:
-            animeSynopsis = str(animeDict["data"][i]["attributes"]["synopsis"])
-
-        embed = discord.Embed(
-            title=animeTitle,
-            description=animeSynopsis
-                        + '\n\n**Status**: ' + str(animeStatus)
-                        + '\n**No. of Episodes**: ' + str(animeEpCount)
-                        + '\n **Rating**: ' + str(animeRating),
-            colour=discord.Colour.blue()
-        )
-
-        embed.set_footer(text='For more info, type ~commands to view commands list')
-        embed.set_thumbnail(url=animeImg)
-        embed.set_author(name='BOTaku',
-                         icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
-
-        await ctx.send(embed=embed)
+    embed.set_footer(text=f'For more info, type {prefix}commands to view commands list')
+    embed.set_thumbnail(url=anime_Image)
+    embed.set_author(name=ctx.author.display_name,
+                     icon_url=ctx.author.avatar_url)
+    await ctx.send(embed=embed)
 
 
-# anime search genre
+# recommends anime based on genre
 @client.command(aliases=['animeGenre', 'ag'])
 @commands.cooldown(1, 2, commands.BucketType.user)
 async def _searchAnimegenre(ctx, *arg):
@@ -263,78 +269,63 @@ async def _searchAnimegenre(ctx, *arg):
             await ctx.send(embed=embed)
 
 
-
-# search anime by name
-@client.command(aliases=['animeName', 'an'])
-async def _animeName(ctx, arg):
-    query = arg
-    entries = await search.search('anime', query, limit=5)
-
-    if not entries:
-        await ctx.send(f'No entries found for "{query}"')
-        return
-
-    for i, anime in enumerate(entries, 1):
-        animeTitle = anime.title
-        animeStatus = anime.status
-        animeSynopsis = anime.synopsis
-        animeEpCount = anime.episode_count
-        animeRating = anime.average_rating
-        animeImg = anime.poster_image_url
+# recommends anime based on title
+@client.command(aliases=['recommendAnime', 'a'])
+@commands.cooldown(1, 2, commands.BucketType.user)
+async def _recoAnime(ctx, *arg):
+    if not arg:
         embed = discord.Embed(
-            title=animeTitle,
-            description=animeSynopsis
-                        + '\n\n**Status**: ' + str(animeStatus)
-                        + '\n**No. of Episodes**: ' + str(animeEpCount)
-                        + '\n **Rating**: ' + str(animeRating),
-            colour=discord.Colour.blue()
+            title='No anime title entered',
+            description=f'Try adding a title with that command. For example: {prefix}recommendAnime Hunter x Hunter',
+            colour=discord.Colour.dark_red()
         )
-        embed.set_footer(text='For more info, type ~commands to view commands list')
-        embed.set_thumbnail(url=animeImg)
-        embed.set_author(name='BOTaku',
-                         icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
 
+        embed.set_footer(text=f'For more info, type {prefix}commands to view commands list')
+        embed.set_author(name=ctx.author.display_name,
+                         icon_url=ctx.author.avatar_url)
         await ctx.send(embed=embed)
-
-
-# random manga search
-@client.command(aliases=['randomManga', 'rm'])
-async def _supriseManga(ctx):
-    genreList = List_list.genreListManga
-    genre = random.choice(genreList)
-    randOffset = random.randint(0, 100)
-
-    api = f'https://kitsu.io/api/edge/manga?filter[categories]={genre}&sort=-averageRating&page[limit]=5&page[offset]={randOffset}'
-    response = requests.get(api)
-
-    mangaDict = response.json()
-    print(genre)
-    print(randOffset)
-
-    for i in range(5):
-
-        if mangaDict["data"][i]["attributes"]["canonicalTitle"] == '':
-            try:
-                titleIndex0 = list(mangaDict["data"][i]["attributes"]["titles"])[0]
-                titleIndex1 = list(mangaDict["data"][i]["attributes"]["titles"])[1]
-            except:
-                print('')
-
-            if mangaDict["data"][i]["attributes"]["titles"][titleIndex0] == '':
-                print(mangaDict["data"][i]["attributes"]["titles"][titleIndex1])
-            else:
-                print(mangaDict["data"][i]["attributes"]["titles"][titleIndex0])
+    else:
+        query = arg
+        listRec = await w.anime_search(query)
+        if len(listRec) > 0:
+            for i in range(5):
+                anime_Titles = listRec[i][0]
+                anime_Status = listRec[i][1]
+                anime_epCount = listRec[i][3]
+                anime_Image = listRec[i][4]
+                anime_Ratings = listRec[i][5]
+                anime_Synopsis = listRec[i][6]
+                embed = discord.Embed(
+                    title=anime_Titles,
+                    description=anime_Synopsis
+                                + '\n\n**Status**: ' + str(anime_Status)
+                                + '\n**No. of Episodes**: ' + str(int(anime_epCount))
+                                + '\n **Rating**: ' + str(anime_Ratings),
+                    colour=discord.Colour.blue()
+                )
+                embed.set_footer(text=f'For more info, type {prefix}commands to view commands list')
+                embed.set_thumbnail(url=anime_Image)
+                embed.set_author(name=ctx.author.display_name,
+                                 icon_url=ctx.author.avatar_url)
+                await ctx.send(embed=embed)
         else:
-            mangaTitle = str(mangaDict["data"][i]["attributes"]["canonicalTitle"])
+            embed = discord.Embed(
+                title='Anime Title Not Available',
+                description=f'Please use the command {prefix}animeGenre to show all available genres',
+                colour=discord.Colour.blue()
+            )
 
-        mangaImg = str(mangaDict["data"][i]["attributes"]["posterImage"]["large"])
-        mangaStatus = str(mangaDict["data"][i]["attributes"]["status"])
-        mangaChCount = str(mangaDict["data"][i]["attributes"]["chapterCount"])
-        mangaVolCount = str(mangaDict["data"][i]["attributes"]["volumeCount"])
-        mangaRating = str(mangaDict["data"][i]["attributes"]["averageRating"])
+            embed.set_footer(text=f'For more info, type {prefix}commands to view commands list')
+            embed.set_author(name='BOTaku',
+                             icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
+            await ctx.send(embed=embed)
 
-        if mangaStatus == "current":
-            mangaStatus = "ongoing"
+
+# recommends manga randomly
+@client.command(aliases=['randomManga', 'rm'])
+@commands.cooldown(1, 2, commands.BucketType.user)
+async def _supriseManga(ctx):
+    ranManga = ran.randomManga()
 
     manga_Titles = ranManga[0]
     manga_Status = ranManga[1]

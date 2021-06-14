@@ -37,12 +37,3 @@ def recommend_anime(genre):
     # recommendation = genre
     # print(len(genre))
     return recommendation
-
-# Testing
-# while 1!=0:
-#     animeGenre = input('Enter genre: ')
-#     x = recommend_anime(animeGenre)
-#     y = x.values.tolist()
-#     for a in y:
-#         print(a)
-#
