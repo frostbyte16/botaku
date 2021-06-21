@@ -43,6 +43,10 @@ manga_index = pd.Series(df_manga.index, index=df_manga.title).drop_duplicates()
 
 
 def recommend_manga(title, similarity=cosine_similarity):
+    # title = df_manga[df_manga['title'].str.contains(title)]['title'].iloc[0]
+    # initializes an empty dataframe
+    recommendation = df_manga.iloc[0:0]
+
     # Searches for manga if title exists in dataframe
     if title in df_manga.values:
         if df_manga['title'].str.contains(title).sum() > 0:
@@ -57,8 +61,7 @@ def recommend_manga(title, similarity=cosine_similarity):
             # manga indices
             manga_indices = [i[0] for i in scores]
 
-            recommendation = df_manga[['title', 'status', 'chCount', 'vCount', 'image', 'rating', 'synopsis']].iloc[
-                manga_indices]
+            recommendation = df_manga[['title', 'status', 'chCount', 'vCount', 'image', 'rating', 'synopsis']].iloc[manga_indices]
 
             # Top 5 most similar manga
             recommendation = recommendation[1:6]
@@ -67,6 +70,7 @@ def recommend_manga(title, similarity=cosine_similarity):
         recommendation = df_manga.iloc[0:0]
 
     return recommendation
+
 
 # Testing
 # while 1!=0:
@@ -79,3 +83,5 @@ def recommend_manga(title, similarity=cosine_similarity):
 #
 #     for a in y:
 #         print(a)
+#
+

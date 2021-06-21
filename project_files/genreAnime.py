@@ -22,8 +22,6 @@ df_anime.reset_index(drop=True, inplace=True)
 def recommend_anime(genre):
     # Searches for anime if title exists in dataframe
     genre = df_anime[df_anime['genre'].str.contains(f"'{genre}'")]
-    #start = random.randrange(0, 20)
-    #recommendation = genre[start:start+5]
 
     if len(genre) > 50:
         start = random.randrange(0, 44)
@@ -34,6 +32,5 @@ def recommend_anime(genre):
         size = len(genre) - 5
         start = random.randrange(0, size)
         recommendation = genre[start:start + 5]
-    # recommendation = genre
-    # print(len(genre))
+
     return recommendation

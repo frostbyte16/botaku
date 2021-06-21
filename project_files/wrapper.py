@@ -14,6 +14,7 @@ async def anime_search(query):
     for i, anime in enumerate(entries, 1):
         print(anime.title)
         recommendation = cba.recommend_anime(anime.title, anime.subtype)
+        # print(recommendation)
         if recommendation.size > 0:
             recoList = recommendation.values.tolist()
             return recoList
@@ -29,7 +30,6 @@ async def manga_search(query):
     for i, manga in enumerate(entries, 1):
         print(manga.title)
         recommendation = cbm.recommend_manga(manga.title)
-
         if recommendation.size > 0:
             recoList = recommendation.values.tolist()
             return recoList

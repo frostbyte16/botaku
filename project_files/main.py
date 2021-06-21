@@ -311,7 +311,7 @@ async def _recoAnime(ctx, *arg):
         else:
             embed = discord.Embed(
                 title='Anime Title Not Available',
-                description=f'Please use the command {prefix}animeGenre to show all available genres',
+                description='Sorry, the title you entered is not available at the moment. Try typing another manga title',
                 colour=discord.Colour.blue()
             )
 
@@ -451,7 +451,7 @@ async def _recomanga(ctx, *arg):
         else:
             embed = discord.Embed(
                 title='Manga Title Not Available',
-                description=f'Please use the command {prefix}animeGenre to show all available genres',
+                description='Sorry, the title you entered is not available at the moment. Try typing another manga title',
                 colour=discord.Colour.red()
             )
 

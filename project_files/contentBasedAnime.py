@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import sigmoid_kernel, cosine_similarity
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+
 df_anime = pd.read_csv("anime.csv")
 
 # Drops all blank anime with duplicate titles
@@ -38,6 +39,8 @@ anime_index = pd.Series(df_anime.index, index=df_anime.title).drop_duplicates()
 
 
 def recommend_anime(title, type, similarity=cosine_sim):
+    title = title.replace(' (TV)','')
+
     # Searches for anime if title exists in dataframe
     if title in df_anime.values:
         if df_anime['title'].str.contains(title).sum() > 0:
