@@ -197,9 +197,9 @@ async def _surpriseAnime(ctx):
     embed = discord.Embed(
         title=anime_Titles,
         description=anime_Synopsis
-                    + '\n\n**Status**: ' + str(anime_Status)
-                    + '\n**No. of Episodes**: ' + str(int(anime_epCount))
-                    + '\n **Rating**: ' + str(anime_Ratings),
+                    + '\n\n:hourglass_flowing_sand: **Status**: ' + str(anime_Status)
+                    + '\n:minidisc: **No. of Episodes**: ' + str(int(anime_epCount))
+                    + '\n:star: **Rating**: ' + str(anime_Ratings),
         colour=discord.Colour.blue()
     )
 
@@ -244,9 +244,9 @@ async def _searchAnimegenre(ctx, *arg):
                 embed = discord.Embed(
                     title=anime_Titles,
                     description=anime_Synopsis
-                                + '\n\n**Status**: ' + str(anime_Status)
-                                + '\n**No. of Episodes**: ' + str(int(anime_epCount))
-                                + '\n **Rating**: ' + str(anime_Ratings),
+                                + '\n\n:hourglass_flowing_sand: **Status**: ' + str(anime_Status)
+                                + '\n:minidisc: **No. of Episodes**: ' + str(int(anime_epCount))
+                                + '\n:star: **Rating**: ' + str(anime_Ratings),
                     colour=discord.Colour.blue()
                 )
 
@@ -298,9 +298,9 @@ async def _recoAnime(ctx, *arg):
                 embed = discord.Embed(
                     title=anime_Titles,
                     description=anime_Synopsis
-                                + '\n\n**Status**: ' + str(anime_Status)
-                                + '\n**No. of Episodes**: ' + str(int(anime_epCount))
-                                + '\n **Rating**: ' + str(anime_Ratings),
+                                + '\n\n:hourglass_flowing_sand: **Status**: ' + str(anime_Status)
+                                + '\n:minidisc: **No. of Episodes**: ' + str(int(anime_epCount))
+                                + '\n:star: **Rating**: ' + str(anime_Ratings),
                     colour=discord.Colour.blue()
                 )
                 embed.set_footer(text=f'For more info, type {prefix}commands to view commands list')
@@ -311,7 +311,7 @@ async def _recoAnime(ctx, *arg):
         else:
             embed = discord.Embed(
                 title='Anime Title Not Available',
-                description='Sorry, the title you entered is not available at the moment. Try typing another manga title',
+                description='Sorry, the title you entered is not available at the moment. Try typing another anime title',
                 colour=discord.Colour.blue()
             )
 
@@ -337,10 +337,10 @@ async def _supriseManga(ctx):
     embed = discord.Embed(
         title=manga_Titles,
         description=manga_Synopsis
-                    + '\n\n**Status**: ' + str(manga_Status)
-                    + '\n**No. of Chapters**: ' + str(int(manga_chCount))
-                    + '\n**No. of Volumes**: ' + str(int(manga_vCount))
-                    + '\n **Rating**: ' + str(manga_Ratings),
+                    + '\n\n:hourglass_flowing_sand: **Status**: ' + str(manga_Status)
+                    + '\n:newspaper: **No. of Chapters**: ' + str(int(manga_chCount))
+                    + '\n:books: **No. of Volumes**: ' + str(int(manga_vCount))
+                    + '\n:star: **Rating**: ' + str(manga_Ratings),
         colour=discord.Colour.red()
     )
     embed.set_footer(text=f'For more info, type {prefix}commands to view commands list')
@@ -383,10 +383,10 @@ async def _mangaGenre(ctx, *arg):
                 embed = discord.Embed(
                     title=manga_Titles,
                     description=manga_Synopsis
-                                + '\n\n**Status**: ' + str(manga_Status)
-                                + '\n**No. of Chapters**: ' + str(int(manga_chCount))
-                                + '\n**No. of Volumes**: ' + str(int(manga_vCount))
-                                + '\n **Rating**: ' + str(manga_Ratings),
+                                + '\n\n:hourglass_flowing_sand: **Status**: ' + str(manga_Status)
+                                + '\n:newspaper: **No. of Chapters**: ' + str(int(manga_chCount))
+                                + '\n:books: **No. of Volumes**: ' + str(int(manga_vCount))
+                                + '\n:star: **Rating**: ' + str(manga_Ratings),
                     colour=discord.Colour.red()
                 )
                 embed.set_footer(text=f'For more info, type {prefix}commands to view commands list')
@@ -437,10 +437,10 @@ async def _recomanga(ctx, *arg):
                 embed = discord.Embed(
                     title=manga_Titles,
                     description=manga_Synopsis
-                                + '\n\n**Status**: ' + str(manga_Status)
-                                + '\n**No. of Chapters**: ' + str(int(manga_chCount))
-                                + '\n**No. of Volumes**: ' + str(int(manga_vCount))
-                                + '\n **Rating**: ' + str(manga_Ratings),
+                                + '\n\n:hourglass_flowing_sand: **Status**: ' + str(manga_Status)
+                                + '\n:newspaper: **No. of Chapters**: ' + str(int(manga_chCount))
+                                + '\n:books: **No. of Volumes**: ' + str(int(manga_vCount))
+                                + '\n:star: **Rating**: ' + str(manga_Ratings),
                     colour=discord.Colour.red()
                 )
                 embed.set_footer(text=f'For more info, type {prefix}commands to view commands list')

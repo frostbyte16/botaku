@@ -62,7 +62,9 @@ def getAnime():
                     image = animeDict["data"][i]["attributes"]["posterImage"]["large"]
 
                 if status == 'current':
-                    status = 'ongoing'
+                    status = 'Ongoing'
+                elif status == 'finished':
+                    status = 'Finished'
 
                 print(offset + i)
                 responseGenre = requests.get(genreLink)
@@ -117,7 +119,9 @@ def getManga():
                     image = mangaDict["data"][i]["attributes"]["posterImage"]["large"]
 
                 if status == 'current':
-                    status = 'ongoing'
+                    status = 'Ongoing'
+                elif status == 'finished':
+                    status = 'Finished'
 
                 print(offset + i)
                 responseGenre = requests.get(genreLink)
