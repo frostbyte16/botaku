@@ -94,10 +94,9 @@ async def on_command_error(ctx, error):
             colour=discord.Colour.dark_red()
         )
         embed.set_footer(text='BOT-aku commands')
-        embed.set_author(name='BOTaku',
-                         icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
-        embed.set_image(
-            url=gif)
+        embed.set_author(name=ctx.author.display_name,
+                         icon_url=ctx.author.avatar_url)
+        embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
     if isinstance(error, commands.CommandOnCooldown):
@@ -107,10 +106,9 @@ async def on_command_error(ctx, error):
             colour=discord.Colour.dark_red()
         )
         embed.set_footer(text='BOT-aku commands')
-        embed.set_author(name='BOTaku',
-                         icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
-        embed.set_image(
-            url=gif)
+        embed.set_author(name=ctx.author.display_name,
+                         icon_url=ctx.author.avatar_url)
+        embed.set_image(url=gif)
         await ctx.send(embed=embed)
 
 
