@@ -1,8 +1,6 @@
 import discord
 from discord.ext import commands
 import wrapper as w
-# import genreAnime as ga
-# import genreManga as gm
 import genre as g
 import randomAnime as ran
 import List_list
