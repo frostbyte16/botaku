@@ -1,4 +1,4 @@
-# get data file
+# get data file from kitsu
 import requests
 import csv
 import multiprocessing

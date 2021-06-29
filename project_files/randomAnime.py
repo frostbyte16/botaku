@@ -1,3 +1,4 @@
+# returns one random anime or manga
 import pandas as pd
 import random
 

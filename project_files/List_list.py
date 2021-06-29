@@ -5,8 +5,6 @@ genreList = ['action', 'adventure', 'comedy', 'drama', 'sci-fi', 'space', 'myste
              'yuri', 'yaoi', 'anime-influenced', 'gender-bender', 'doujinshi', 'mahou-shoujo', 'gore',
              'medical', 'political', 'youth', 'workplace', 'zombies', 'food', 'friendship', 'isekai']
 
-#mature,crime(manga), family(manga), mahou-shounen, Cooking, documentary, tragedy
-
 colA = 'action\n drama\n mystery\n police\n romance\n racing\n thriller\n school\n historical\n mecha\n harem\n ' \
        'shoujo-ai\n kids\n yaoi\n doujinshi\n gore\n food\n isekai'
 

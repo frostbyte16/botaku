@@ -1,8 +1,5 @@
 import kitsu
-# import contentBasedAnime as cba
-# import contentBasedManga as cbm
 import contentBased as cb
-import asyncio
 
 client = kitsu.Client()
 
