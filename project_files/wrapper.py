@@ -1,6 +1,7 @@
 import kitsu
-import contentBasedAnime as cba
-import contentBasedManga as cbm
+# import contentBasedAnime as cba
+# import contentBasedManga as cbm
+import contentBased as cb
 import asyncio
 
 client = kitsu.Client()
@@ -13,7 +14,7 @@ async def anime_search(query):
 
     for i, anime in enumerate(entries, 1):
         print(anime.title)
-        recommendation = cba.recommend_anime(anime.title, anime.subtype)
+        recommendation = cb.recommend(anime.title, 'anime', anime.subtype)
         # print(recommendation)
         if recommendation.size > 0:
             recoList = recommendation.values.tolist()
@@ -29,7 +30,7 @@ async def manga_search(query):
 
     for i, manga in enumerate(entries, 1):
         print(manga.title)
-        recommendation = cbm.recommend_manga(manga.title)
+        recommendation = cb.recommend(manga.title, 'manga', '')
         if recommendation.size > 0:
             recoList = recommendation.values.tolist()
             return recoList

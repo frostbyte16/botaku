@@ -1,9 +1,9 @@
 import discord
 from discord.ext import commands
-from discord.utils import find
 import wrapper as w
-import genreAnime as ga
-import genreManga as gm
+# import genreAnime as ga
+# import genreManga as gm
+import genre as g
 import randomAnime as ran
 import List_list
 import random
@@ -191,7 +191,7 @@ async def _surpriseAnime(ctx):
     anime_epCount = randAnime[4]
     anime_Image = randAnime[3]
     anime_Ratings = randAnime[5]
-    anime_Synopsis = randAnime[7]
+    anime_Synopsis = randAnime[6]
     embed = discord.Embed(
         title=anime_Titles,
         description=anime_Synopsis
@@ -228,7 +228,7 @@ async def _searchAnimegenre(ctx, *arg):
         genrelist = List_list.genreList
 
         if genre in genrelist:
-            x = ga.recommend_anime(genre)
+            x = g.recommend(genre, 'anime')
             recoList = x.values.tolist()
 
             for i in range(5):
@@ -237,7 +237,7 @@ async def _searchAnimegenre(ctx, *arg):
                 anime_epCount = recoList[i][4]
                 anime_Image = recoList[i][3]
                 anime_Ratings = recoList[i][5]
-                anime_Synopsis = recoList[i][7]
+                anime_Synopsis = recoList[i][6]
 
                 embed = discord.Embed(
                     title=anime_Titles,
@@ -331,7 +331,7 @@ async def _supriseManga(ctx):
     manga_vCount = ranManga[4]
     manga_Image = ranManga[2]
     manga_Ratings = ranManga[5]
-    manga_Synopsis = ranManga[7]
+    manga_Synopsis = ranManga[6]
     embed = discord.Embed(
         title=manga_Titles,
         description=manga_Synopsis
@@ -368,7 +368,7 @@ async def _mangaGenre(ctx, *arg):
         genrelist = List_list.genreList
 
         if genre in genrelist:
-            x = gm.recommend_manga(genre)
+            x = g.recommend(genre, 'manga')
             recoList = x.values.tolist()
             for i in range(5):
                 manga_Titles = recoList[i][0]
@@ -377,7 +377,7 @@ async def _mangaGenre(ctx, *arg):
                 manga_vCount = recoList[i][4]
                 manga_Image = recoList[i][2]
                 manga_Ratings = recoList[i][5]
-                manga_Synopsis = recoList[i][7]
+                manga_Synopsis = recoList[i][6]
                 embed = discord.Embed(
                     title=manga_Titles,
                     description=manga_Synopsis

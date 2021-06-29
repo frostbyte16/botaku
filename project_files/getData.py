@@ -33,7 +33,7 @@ def getAnime():
     offset = 0
 
     # range = 500 due to getting relevant anime only
-    animeFields = [['title', 'subtype', 'status', 'image', 'epCount', 'rating', 'userCount', 'synopsis', 'genre']]
+    animeFields = [['title', 'subtype', 'status', 'image', 'epCount', 'rating', 'synopsis', 'genre']]
     writer.writerows(animeFields)
     for j in range(500):
         print("iteration no." + str(j))
@@ -52,7 +52,6 @@ def getAnime():
                 status = animeDict["data"][i]["attributes"]["status"]
                 epCount = animeDict["data"][i]["attributes"]["episodeCount"]
                 rating = animeDict["data"][i]["attributes"]["averageRating"]
-                userCount = animeDict["data"][i]["attributes"]["userCount"]
                 synopsis = animeDict["data"][i]["attributes"]["synopsis"]
                 genreLink = animeDict["data"][i]["relationships"]["genres"]["links"]["self"]
 
@@ -77,7 +76,8 @@ def getAnime():
                     genre_number = int(genreDictB["data"][k]["id"])
                     genre.append(genreList[genre_number])
 
-                rows = [[title, subtype, status, image, epCount, rating, userCount, synopsis, genre]]
+                rows = [[title, subtype, status, image, epCount, rating, synopsis, genre]]
+                #       0       1       2       3       4       5       6           7
                 writer.writerows(rows)
         offset = offset + 20
     animeFile.close()
@@ -90,7 +90,7 @@ def getManga():
     offset = 0
 
     # range = 500 due to getting relevant manga only
-    mangaFields = [['title', 'status', 'image', 'chCount', 'vCount', 'rating', 'userCount', 'synopsis', 'genre']]
+    mangaFields = [['title', 'status', 'image', 'chCount', 'vCount', 'rating', 'synopsis', 'genre']]
     writer.writerows(mangaFields)
     for j in range(500):
         print("iteration no." + str(j))
@@ -109,7 +109,6 @@ def getManga():
                 chCount = mangaDict["data"][i]["attributes"]["chapterCount"]
                 vCount = mangaDict["data"][i]["attributes"]["volumeCount"]
                 rating = mangaDict["data"][i]["attributes"]["averageRating"]
-                userCount = mangaDict["data"][i]["attributes"]["userCount"]
                 synopsis = mangaDict["data"][i]["attributes"]["synopsis"]
                 genreLink = mangaDict["data"][i]["relationships"]["genres"]["links"]["self"]
 
@@ -134,7 +133,8 @@ def getManga():
                     genre_number = int(genreDictB["data"][k]["id"])
                     genre.append(genreList[genre_number])
 
-                rows = [[title, status, image, chCount, vCount, rating, userCount, synopsis, genre]]
+                rows = [[title, status, image, chCount, vCount, rating, synopsis, genre]]
+                #       0       1       2       3       4       5       6       7
                 writer.writerows(rows)
         offset = offset + 20
     mangaFile.close()

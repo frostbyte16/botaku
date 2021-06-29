@@ -16,6 +16,7 @@ def randomAnime():
     rand = random.randrange(0,len(df_anime))
     recommendation = df_anime.iloc[rand]
     recoList = recommendation.values.tolist()
+    print(recoList)
     return recoList
 
 def randomManga():
