@@ -273,6 +273,15 @@ async def _searchAnimegenre(ctx, *arg):
 @client.command(aliases=['recommendAnime', 'a'])
 @commands.cooldown(1, 2, commands.BucketType.user)
 async def _recoAnime(ctx, *arg):
+    wait = discord.Embed(
+        title='Please wait while we ready the recommendation',
+        description=f'I am processing the data right now! :face_with_monocle::bookmark_tabs:',
+        colour=discord.Colour.blue()
+    )
+    wait.set_author(name=ctx.author.display_name,
+                    icon_url=ctx.author.avatar_url)
+    await ctx.send(embed=wait)
+
     if not arg:
         embed = discord.Embed(
             title='No anime title entered',
@@ -317,7 +326,7 @@ async def _recoAnime(ctx, *arg):
 
             embed.set_footer(text=f'For more info, type {prefix}commands to view commands list')
             embed.set_author(name='BOTaku',
-                             icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
+                             icon_url='https://media.discordapp.net/attachments/822687223207165983/840470719766331413/download20210506141013.png')
             await ctx.send(embed=embed)
 
 
@@ -358,7 +367,7 @@ async def _mangaGenre(ctx, *arg):
         embed = discord.Embed(
             title='No genre entered',
             description=f'Try adding a genre with that command. For example: {prefix}mangaGenre comedy',
-            colour=discord.Colour.dark_red()
+            colour=discord.Colour.red()
         )
 
         embed.set_footer(text=f'For more info, type {prefix}commands to view commands list')
@@ -411,6 +420,15 @@ async def _mangaGenre(ctx, *arg):
 @client.command(aliases=['recommendManga', 'm'])
 @commands.cooldown(1, 2, commands.BucketType.user)
 async def _recomanga(ctx, *arg):
+    wait = discord.Embed(
+        title='Please wait while we ready the recommendation',
+        description=f'I am processing the data right now! :face_with_monocle::bookmark_tabs:',
+        colour=discord.Colour.red()
+    )
+    wait.set_author(name=ctx.author.display_name,
+                    icon_url=ctx.author.avatar_url)
+    await ctx.send(embed=wait)
+
     if not arg:
         embed = discord.Embed(
             title='No manga title entered',
@@ -457,7 +475,7 @@ async def _recomanga(ctx, *arg):
 
             embed.set_footer(text=f'For more info, type {prefix}commands to view commands list')
             embed.set_author(name='BOTaku',
-                             icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
+                             icon_url='https://media.discordapp.net/attachments/822687223207165983/840470719766331413/download20210506141013.png')
             await ctx.send(embed=embed)
 
 
