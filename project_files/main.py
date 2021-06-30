@@ -11,6 +11,7 @@ import json
 
 prefix = ''
 
+
 def get_prefix(client, message):
     global prefix
     with open("prefixes.json", "r") as f:
@@ -18,10 +19,10 @@ def get_prefix(client, message):
         prefix = prefixes[str(message.guild.id)]
     return prefixes[str(message.guild.id)]
 
-client = commands.Bot(command_prefix = get_prefix)
+
+client = commands.Bot(command_prefix=get_prefix)
 
 TOKEN = 'ODMzNTk3NDI1NTc0ODcxMDYw.YH0qGQ.bWJgnmd0l4pYAWoZKNZVcVPye8o'
-
 
 
 # changes prefix
@@ -52,6 +53,7 @@ async def on_message(msg):
         pass
 
     await client.process_commands(msg)
+
 
 # sets default prefix
 @client.event
@@ -148,7 +150,8 @@ async def commandlist(ctx):
     embed.add_field(name=f"**{prefix}randomAnime or {prefix}ra**", value='Recommends random anime.', inline=False)
     embed.add_field(name=f"**{prefix}randomManga or {prefix}rm**", value='Recommends random manga.', inline=True)
     embed.add_field(name=f"**{prefix}hug or {prefix}hugs**", value='Botaku hugs user.', inline=False)
-    embed.add_field(name=f"**{prefix}changeprefix *prefix* **", value='Changes the server prefix for Botaku commands (Administrator-only command).', inline=False)
+    embed.add_field(name=f"**{prefix}changeprefix *prefix* **",
+                    value='Changes the server prefix for Botaku commands (Administrator-only command).', inline=False)
 
     await ctx.send(embed=embed)
 
@@ -456,7 +459,6 @@ async def _recomanga(ctx, *arg):
             embed.set_author(name='BOTaku',
                              icon_url='https://cdn.discordapp.com/attachments/833625892751278082/834321459618512896/fmdrbd5ruah61.jpg')
             await ctx.send(embed=embed)
-
 
 
 client.run(TOKEN)
