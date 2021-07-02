@@ -22,7 +22,7 @@ def get_prefix(client, message):
 
 client = commands.Bot(command_prefix=get_prefix)
 
-TOKEN = 'ODMzNTk3NDI1NTc0ODcxMDYw.YH0qGQ.bWJgnmd0l4pYAWoZKNZVcVPye8o'
+TOKEN = ''# <--insert your discord bot token here
 
 
 # changes prefix
