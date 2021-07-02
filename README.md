@@ -1,8 +1,35 @@
 # Botaku: The Anime Recommender Bot
 
 ## About
-Get anime and manga recommendations based on watched anime or genre.
+A simple discord bot that provides anime and manga recommendations based on watched anime or genre using the following packages:
+ * discord.py 
+ * scikit-learn
+ * pandas
+ * kitsu-wrapper
+
+The Database is created from the kitsu API link: https://kitsu.docs.apiary.io/#
  
+## Instructions
+For the bot to run install the following packages:
+ * discord.py
+ * scikit-learn
+ * pandas
+ * kitsu-wrapper
+
+For the database building install the following:
+ * requests
+ * Beautiful Soup
+
+ ### The bot
+ 1. Open the file main.py and there you will see the token variable. The token variable is where you will insert your token taken from the official Discord develeoper portal
+ 2. run main.py 
+
+ In this scenario, the bot will run until you close your python IDE. In order for it to run 24/7 you need to use a cloud machine server (Amazon AWS, Heroku, etc.) 
+ 
+ ### The Data Collector
+ Open getData.py and run it. after running you should see that two .csv file are created named anime.csv and manga.csv this two files is where the data from the api will be written. You will also notice that in your console there are numbers getting printed in there, it is the number of iteration in from Kitsu API. 
+
+
 ## The Developers
 This discord bot was created by: <br/>
 <img src="https://static.wikia.nocookie.net/gensin-impact/images/d/d4/Item_Primogem.png/revision/latest?cb=20201117071158" height="15" width="15"> 
