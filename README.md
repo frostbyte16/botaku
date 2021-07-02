@@ -2,6 +2,7 @@
 
 ## About
 Invite the bot to your server: https://discord.com/api/oauth2/authorize?client_id=833597425574871060&permissions=2148005952&scope=bot
+
 A simple discord bot that provides anime and manga recommendations based on watched anime or genre using the following packages:
  * discord.py 
  * scikit-learn
